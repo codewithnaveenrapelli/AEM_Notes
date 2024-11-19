@@ -23,7 +23,7 @@ In AEM, sometimes we come across the scenario of replicating the content with a 
 
 * We can have one or more than one publish AEM instance.
 
-![AEM Replication Image](./Images/author.png)
+![AEM Replication Image](./Images/Replication%20Image/author.png)
 
 ### How to Configure Replication Agent?
 

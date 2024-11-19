@@ -1,6 +1,15 @@
-# Introduction to AEM Architecture
+![Introduction to AEM Architecture](./Titleimages/Arct.png)
 
-We learned the basics of AEM and how it functions as a CMS platform in the previous article [AEM Introduction](./02_AEM_Introduction.md)Let’s explore the technology stack that was used to create this kind of software.
+### Objective
+- After reading this Article, You should have an Understanding of 
+    - [OSGi Java Container](#osgi-java-container)
+    - [Security Layer](#security-layer)
+    - [Module Layer ](#module-layer)
+    - [Java Content Repository (JCR)](#java-content-repository-jcr)
+    - [Apache Sling](#apache-sling)
+
+
+We learned the basics of AEM and how it functions as a CMS platform in the previous article [AEM overview](./01_AEM_Overview.md)Let’s explore the technology stack that was used to create this kind of software.
 
 ![AEM Architecture Stack](./Images/AEM.jpg)
 
@@ -28,31 +37,31 @@ Life cycle layer provides APIs for managing the bundles and these bundles can be
 ### Java Content Repository (JCR)
 JCR is content repository which supports storing of structured and unstructured content in the hierarchy model.
 
-Principles of JCR
-- We have common programmatic interface for accessing the content
-- An API based which does not involve or connect to underlying architecture
-- JCR is organized as hierarchy or filesystem model which is easy access and maintain the content.
+- Principles of JCR
+    - We have common programmatic interface for accessing the content
+    - An API based which does not involve or connect to underlying architecture
+    - JCR is organized as hierarchy or filesystem model which is easy access and maintain the content.
 
-
-### JCR Features
-- Storing in binaries
-- Single & Multi Valued properties
-- Locking the content
-- versioning
-- Access control
-- Querying
-- Structuring
-- Event and Observation of content
+- JCR Features
+    - Storing in binaries
+    - Single & Multi Valued properties
+    - Locking the content
+    - versioning
+    - Access control
+    - Querying
+    - Structuring
+    - Event and Observation of content
 
 JCR Hierarchy structure
 
 JCR is all about the hierarchy structure which contains nodes which are similar to files and properties which are data in the files which is shown in the below image.
 
 ![JCR](./Images/jcr.png)
+
 ![JCR](./Images/jcr2.png)
 
 
-## Apache Sling
+### Apache Sling
 Sling is web application framework designed to develop the application which uses JCR as the datastore.
 
 Sling Features
