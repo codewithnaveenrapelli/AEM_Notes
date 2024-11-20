@@ -9,5 +9,6 @@
 | 05    |  [ AEM Local Instance Setup](./05_AEM_Instances_Setup.md) |
 | 06    |  [ create the AEM Project](./06_AEM_Project_Setup.md) |
 | 07    |  [ AEM Replication](./07_Replication&ReverseReplication.md) |
+| 08    |  [ AEM CRXDE Lite](./08_CRXDE_Lite.md) |
 
 Keep Learning 🩷👍
