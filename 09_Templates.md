@@ -317,56 +317,55 @@ Developer Responsibilities:
 - Define behavior and design properties for templates, components, and pages.
 - Enable Style System, a robust feature for editable templates.
 
-    ### What is a Content Policy?
+### What is a Content Policy?
+- Sets design properties for pages and components linked to a template.
+- Enables the Style System for customization (covered separately).
 
-    - Sets design properties for pages and components linked to a template.
-    - Enables the Style System for customization (covered separately).
+- Policy are divided into two types.
+    -  Page Policy.
+        - Defines global behaviors like client libraries, main selectors, etc., for all pages created using a template.
+    - Content Policy.
+        - Specifies allowed components and configurations for different template parts (e.g., parsys, containers).
 
-    - Policy are divided into two types.
-        -  Page Policy.
-            - Defines global behaviors like client libraries, main selectors, etc., for all pages created using a template.
-        - Content Policy.
-            - Specifies allowed components and configurations for different template parts (e.g., parsys, containers).
+### Page Policy
+- Steps to Add a Page Policy.
 
-        ### Page Policy
-        - Steps to Add a Page Policy.
-
-            - Go to Template Editor → Click on Page Policy (3 dots menu).
-            - Define properties like.
-                - Client Libraries.
-                    - Base or dependency libraries (added to head or body).
-                    - Resource-specific libraries (icons, fonts, etc.).
-            - JavaScript in Head: Add critical JavaScript to load before the page renders.
-            - Main Selector: Helps identify the main section of the page.
-            - Save changes.
-        - once changed saved, All pages created using the template will have these configurations applied globally.
+    - Go to Template Editor → Click on Page Policy (3 dots menu).
+    - Define properties like.
+        - Client Libraries.
+            - Base or dependency libraries (added to head or body).
+            - Resource-specific libraries (icons, fonts, etc.).
+    - JavaScript in Head: Add critical JavaScript to load before the page renders.
+    - Main Selector: Helps identify the main section of the page.
+    - Save changes.
+- once changed saved, All pages created using the template will have these configurations applied globally.
 
 
-        ### Content Policy
-        - Steps to Add a Content Policy.
-            - Select the Container/Parsys in the Template Editor.
-            - Click the Policy Icon and create a new policy or reuse an existing one.
-            - Define.
-                - Allowed components (e.g., form elements, global components).
-                - Default components (optional auto-mapping based on media type).
-                - Other options like background images, responsive columns, and styling (Style System).
-            - Save and refresh the page to see the allowed components.
-        - Component-Specific Policy.
-            - Some components (e.g., Form Container) may require their own policies for nested - components.
-        - Steps.
-            - Select the component → Click Policy Icon → Define a policy specific to the component.
-            - This overrides the parent container’s policy.
+### Content Policy
+- Steps to Add a Content Policy.
+    - Select the Container/Parsys in the Template Editor.
+    - Click the Policy Icon and create a new policy or reuse an existing one.
+    - Define.
+        - Allowed components (e.g., form elements, global components).
+        - Default components (optional auto-mapping based on media type).
+        - Other options like background images, responsive columns, and styling (Style System).
+    - Save and refresh the page to see the allowed components.
+- Component-Specific Policy.
+    - Some components (e.g., Form Container) may require their own policies for nested - components.
+- Steps.
+    - Select the component → Click Policy Icon → Define a policy specific to the component.
+    - This overrides the parent container’s policy.
 
-        ### Storage of Policies
-        - CRXDE.
-            - Policies are stored under:
-                - conf/<project>/settings/wcm/policies
-                - Each template has a policy node referring to the actual policy.
+### Storage of Policies
+- CRXDE.
+    - Policies are stored under:
+        - conf/<project>/settings/wcm/policies
+        - Each template has a policy node referring to the actual policy.
 
-        - File System:
-            - Policies are stored as single XML files under:
-                - conf/<project>/settings/wcm/policies
-        - The file contains all policy details in a structured hierarchy (e.g., page, left, right sections).
+- File System:
+    - Policies are stored as single XML files under:
+        - conf/<project>/settings/wcm/policies
+- The file contains all policy details in a structured hierarchy (e.g., page, left, right sections).
 
 
 - Now let add some policy to the template.
