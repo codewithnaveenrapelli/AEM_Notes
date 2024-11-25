@@ -10,5 +10,6 @@
 | 06    |  [ create the AEM Project](./06_AEM_Project_Setup.md) |
 | 07    |  [ AEM Replication](./07_Replication&ReverseReplication.md) |
 | 08    |  [ AEM CRXDE Lite](./08_CRXDE_Lite.md) |
+| 09    |  [ AEM Templates](./09_Templates.md) |
 
 Keep Learning 🩷👍
