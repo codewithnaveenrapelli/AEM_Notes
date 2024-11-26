@@ -4,6 +4,7 @@
 ### Objective
 
 - After reading this Article, You should have an Understanding of 
+
     - [What is Template?](#what-is-template)
     - [Types of AEM Templates](#types-of-aem-templates)
     - [What is Static Template?](#what-is-static-template)

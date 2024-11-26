@@ -2,6 +2,7 @@
 
 ### Objective
 - After reading this Article, You should have an Understanding of 
+
     - [AEM Author Instance](#aem-author-instance)
     - [AEM Publish instance](#aem-publish-instance)
     - [Differences Between Author and Publish Instances](#differences-between-author-and-publish-instances)
