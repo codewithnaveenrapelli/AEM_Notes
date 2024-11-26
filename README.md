@@ -11,5 +11,6 @@
 | 07    |  [ AEM Replication](./07_Replication&ReverseReplication.md) |
 | 08    |  [ AEM CRXDE Lite](./08_CRXDE_Lite.md) |
 | 09    |  [ AEM Templates](./09_Templates.md) |
+| 10    |  [ How to Create a Component without Sling Model](./10_Create_Component.md) |
 
 Keep Learning 🩷👍
