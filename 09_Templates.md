@@ -472,11 +472,11 @@ font-small, font-medium, font-large.
 ### General Questions
 
 - What is an editable template in AEM, and how does it differ from a static template?
-    - Answer: Editable templates allow flexibility by letting authors configure page structure and policies dynamically. Static templates are predefined and fixed, requiring developer involvement for changes.
+    - Editable templates allow flexibility by letting authors configure page structure and policies dynamically. Static templates are predefined and fixed, requiring developer involvement for changes.
     - Focus on reusability and authoring flexibility as the key benefits.
 
 - What are the key components of an editable template?
-    - Answer: Structure tab, Initial Content tab, and Policies.
+    - Structure tab, Initial Content tab, and Policies.
     - Remember that structure defines layout, initial content provides defaults, and policies control styling and behavior.
 
 - **Explain the difference between the Structure Tab and the Initial Content Tab**.
