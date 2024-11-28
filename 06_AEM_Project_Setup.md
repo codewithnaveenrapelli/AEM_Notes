@@ -4,6 +4,7 @@
 
 ### Objective
 - After reading this Article, You should have an Understanding of 
+
     - [How to create the AEM Project](#how-to-create-the-aem-project)
     - [Deploy and build the project](#deploy-and-build-the-project)
     - [Understand all submodules](#understand-all-submodules)
