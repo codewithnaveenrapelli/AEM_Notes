@@ -1,4 +1,4 @@
-# AEM_Notes
+![AEM](./Titleimages/AEM.png)
 
 | Day |   Topics     | 
 | ----- | :------------------: |
@@ -12,5 +12,9 @@
 | 08    |  [ AEM CRXDE Lite](./08_CRXDE_Lite.md) |
 | 09    |  [ AEM Templates](./09_Templates.md) |
 | 10    |  [ How to Create a Component without Sling Model](./10_Create_Component.md) |
+| 11    |  [ Clientlibs in AEM](./11_Clientlibs_creation.md) |
+| 12    |  [ clientlibs clear cache and recompile clientlibs in AEM](./12_Clientlibs_Clear_Cache.md) |
+| 13    |  [ Content Fragment in AEM](./13_Content_Fragment.md) |
+
 
 Keep Learning 🩷👍
