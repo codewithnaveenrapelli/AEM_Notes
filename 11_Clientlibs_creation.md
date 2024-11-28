@@ -86,11 +86,12 @@
 
     - node type cq:ClientLibraryFolder and name can be anything.
 
-![clientlibs](/AEM/Images/Clientlibs/clientlibs_2.png)
+![clientlibs](./Images/Clientlibs/clientlibs_2.png)
+
 
 - Create CSS and JS folders to place respective CSS and JS files.
 
-![clientlibs](/AEM/Images/Clientlibs/clientlibs_3.png)
+![clientlibs](./Images/Clientlibs/clientlibs_3.png)
 
 - create sample.js and sample.css files.
 
@@ -115,12 +116,12 @@ site.css
 
 - Create one more client library folder follow above steps.
 
-![clientlibs](/AEM/Images/Clientlibs/clientlibs_5.png)
+![clientlibs](./Images/Clientlibs/clientlibs_5.png)
 
 
 - create below properties under custom-clientlibs.
 
-![clientlibs](/AEM/Images/Clientlibs/clientlibs_6.png)
+![clientlibs](./Images/Clientlibs/clientlibs_6.png)
 
 - Once you added all the properties you need load your clientlibs.
 
@@ -132,21 +133,21 @@ site.css
 
 - Go to page level and Click on editable template.
 
-![clientlibs](/AEM/Images/Clientlibs/clientlibs_7.png)
+![clientlibs](./Images/Clientlibs/clientlibs_7.png)
 
 - Click on page policy
 
-![clientlibs](/AEM/Images/Clientlibs/clientlibs_8.png)
+![clientlibs](./Images/Clientlibs/clientlibs_8.png)
 
 - add your clientlibs --> category name and click on done.
 
-![clientlibs](/AEM/Images/Clientlibs/clientlibs_9.png)
+![clientlibs](./Images/Clientlibs/clientlibs_9.png)
 
 - Once added your category name refresh the page and go to view page source
 
 - You will find desktop is loaded first and custom-clientlibs is loaded next this worked by adding dependencies.
 
-![clientlibs](/AEM/Images/Clientlibs/clientlibs_10.png)
+![clientlibs](./Images/Clientlibs/clientlibs_10.png)
 
 - clientlibs is a multiple value property which allows us to load multiple client categories at the same time.
 
