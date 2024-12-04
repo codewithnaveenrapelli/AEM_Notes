@@ -255,7 +255,7 @@ Developer Responsibilities:
     - Acts as the foundation for creating editable templates.
     - Contains configurations for.
         - [initial]: Defines the initial content or structure.
-        - jcr:content: Node containing metadata and configurations for the template.
+        - [jcr:content]: Node containing metadata and configurations for the template.
         - [structure]: Defines the layout and mandatory components for the template.
         - [policies]: Defines allowed components and associated settings.
         - thumbnail.png: Represents the template visually in the UI.
@@ -263,7 +263,7 @@ Developer Responsibilities:
     - Created using the template type as the base.
     - Shares a similar structure:
         - [initial]: Used to define editable components and content available at page - creation.
-        - jcr:content: Contains metadata and template-specific details.
+        - [jcr:content]: Contains metadata and template-specific details.
         - [structure]: Layout and fixed components that cannot be removed.
         - [policies]: Restrictions and permissions for components.
         - thumbnail.png: Visual representation of the template in the interface.
