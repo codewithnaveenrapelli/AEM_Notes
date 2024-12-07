@@ -15,6 +15,7 @@
 | 11    |  [ Clientlibs in AEM](./11_Clientlibs_creation.md) |
 | 12    |  [ clientlibs clear cache and recompile clientlibs in AEM](./12_Clientlibs_Clear_Cache.md) |
 | 13    |  [ Content Fragment in AEM](./13_Content_Fragment.md) |
+| 14    |  [ Sling Model in AEM](./14_Sling_Model.md) |
 
 
 Keep Learning 🩷👍
