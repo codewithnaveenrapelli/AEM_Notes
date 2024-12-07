@@ -439,6 +439,7 @@ Developer Responsibilities
 - Ensures content is accessible and adaptable to various screen sizes (responsive design).
 
 ### Types of Layouts
+
 - Fixed Layout
 
     - Width is fixed, suitable for desktops only.
@@ -462,7 +463,7 @@ Developer Responsibilities
 
 - Supports responsive design by allowing multi-column arrangements
 
-###  Layout Policies
+### Layout Policies
 
 - Define how the Layout Container behaves and what options are available to authors.
 
@@ -470,6 +471,7 @@ Developer Responsibilities
     - Restrict authors to 2-column or 3-column layouts.
 
     - Allow specific spacing or alignment options.
+
 ### How Layout Works in AEM
 
 - Templates
