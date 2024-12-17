@@ -6,6 +6,7 @@
 
     - [What is Sling Model ?](#what-is-sling-model)
     
+    - [Features of Sling Models](#features-of-sling-models)
     - [How Many Ways We Can Adapt Sling Model ?](#how-many-ways-we-can-adapt-sling-model)
 
     - [Lets Understand Above Attributes](#lets-understand-above-attributes)
@@ -22,6 +23,15 @@
 
 - A Sling Model is implemented as an OSGi bundle. 
 
+### Features of Sling Models
+
+- **Annotations-based Configuration**: Uses annotations like @Model, @Inject, @ValueMapValue, etc., to map properties.
+
+- **Dependency Injection**: Automatically injects properties, services, or objects from the Sling context.
+
+- **Flexibility**: Works with different adaptable objects such as Resource and SlingHttpServletRequest.
+
+- **Modularity**: Separates content retrieval and business logic from the component view (HTL).
 
 ### How Many Ways We Can Adapt Sling Model ?
 
@@ -37,6 +47,7 @@ public class ButtonImpl extend Button{
     // logic
 }
 ```
+
 ### Lets Understand Above Attributes
 
 - @Model annotation
@@ -52,7 +63,7 @@ public class ButtonImpl extend Button{
 
     - SlingHttpServletRequest
 
-        - If you need access to information specific to the HTTP request, such as request parameters, headers, or session data, then using SlingHttpServletRequest as an adaptable is more suitable.
+        - If you need access to information specific to the HTTP request, such as request parameters, headers, or session data, then using SlingHttpServletRequest as an adaptable and additional objects like WCM-specific objects (currentPage, currentDesign, etc.).
 
 - adapter
     - The adapters attribute specifies the interface(s) or class(es) that this model will be adapted to.
