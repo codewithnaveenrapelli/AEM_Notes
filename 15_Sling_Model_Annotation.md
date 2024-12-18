@@ -20,61 +20,68 @@
         - [@ScriptVariable](#scriptvariable)
         - [@ResourcePath](#resourcepath)
         - [@RequestAttribute](#requestattribute)
+        - [@Designate](#designate)
+        - [@Activate](#activate)
 
 
 ### What is Annotation in Sling Model?
 
-- Annotations in Sling Models are used to map AEM content to Java objects.
+- Annotations in Sling Models are a way to map AEM content properties, resources, or services to Java objects. They make it easier to access and use content stored in the repository within your Java code
 
 ### Types of Annotations
 
 ###  @Inject
 
-- @Inject is a generic annotation that can inject properties or objects from various contexts
+- The @Inject annotation is a generic annotation used to inject properties or objects from various contexts in Sling Models.
 
-- @Inject annotation does not offer type safety for the injected dependency.
+- It does not enforce type safety for the injected dependencies, making it more flexible but less strict.
 
-- By default, @Inject fields are optional. If the value is not available, the field will be null unless explicitly marked as required.
+- By default, fields annotated with @Inject are optional. If a value is unavailable, the field will be null unless explicitly marked as required.
 
-- @Inject is used for dependency injection
+- This annotation is primarily used for dependency injection in Sling Models.
 
 ```java
-@Model(adaptables = Resource.class, adapters = CustomComponent.class,
-        defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
+@Model(
+    adaptables = Resource.class,
+    adapters = CustomComponent.class,
+    defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
-public class CustomComponentImpl implements CustomComponent{
+public class CustomComponentImpl implements CustomComponent {
 
     @Inject
-    String firstName;
+    private String firstName;
+
+}
 ```  
 
 ### @ValueMapValue
 
-- It is used to inject properties directly from the resource. It is useful when you need to map resource properties to model fields directly.
+- The @ValueMapValue annotation is used to inject properties directly from a resource, making it ideal for mapping resource properties to model fields.
 
-- Supports default values if the property is not present in the ValueMap.
+- It supports default values, so if a property is missing in the ValueMap, the model field can still receive a default value.
 
-- Automatically converts the property to the fields type if necessary.
+- If needed, the annotation automatically converts the resource property to the appropriate field type.
 
-- @ValueMapValue annotation provides type safety since you can specify the type of the Java field that is being mapped to the JCR property.
+- It provides type safety by allowing you to specify the exact type of the Java field being mapped to the JCR property.
 
 ### Comparison @@Inject and @ValueMapValue
 
-- Both the @Inject and @ValueMapValue annotations are used in AEM Sling Models to map content in the AEM JCR (Java Content Repository) to Java fields in the Sling Model
+- Both the @Inject and @ValueMapValue annotations are used in AEM Sling Models to map content in the AEM JCR (Java Content Repository) to Java fields in the Sling Model. However, they serve different purposes and are used in different contexts.
 
 | Comparison   | @Inject | @ValueMapValue |
 | -------- | ----------- | -----------|
-| Dependency vs direct property mapping |  @Inject is used to inject OSGi services and other dependencies into the Sling Model | @ValueMapValue is used to map JCR properties directly to Java fields in the Sling Model.
-| Usage context | @Inject annotation is typically used to inject services and other dependencies that are not directly related to the content being mapped, but are needed for the Sling Model to function properly | @ValueMapValue annotation is used specifically to map content properties to Java fields in the Sling Model |
-| Type safety |   @Inject annotation does not provide type safety for the injected dependency, which means that you need to be careful to ensure that the correct type of object is injected into the Sling Model |  @ValueMapValue annotation provides type safety, since you can specify the type of the Java field that is being mapped to the JCR property. |    
+| Dependency vs Direct Property Mapping |  @Inject is used to inject OSGi services and other dependencies into the Sling Model | @ValueMapValue is used to map JCR properties directly to Java fields in the Sling Model.
+| Usage context | Typically used for injecting services and dependencies that aren't directly related to the content being mapped but are necessary for the Sling Model to function properly. | Used specifically to map content properties from the JCR to Java fields in the Sling Model. |
+| Type safety |   @Inject does not provide type safety, so it's important to ensure the correct type is injected. |  @ValueMapValue offers type safety, allowing you to specify the type of the Java field being mapped to the JCR property. |    
 
 ### @Named
 
-- This is particularly useful when the field name in the model does not match the property name in the source, or when you want to inject a specific value from a multi-field or a map.
+- The @Named annotation is particularly useful when the field name in the model doesn't match the property name in the source, or when you need to inject a specific value from a multi-field or a map.
 
-- Example: we want to fetch “jcr:lastModifiedBy” from JCR for the specific component
+- For instance, if you want to fetch a property like jcr:lastModifiedBy from the JCR repository for a specific component, you can use the @Named annotation to map the property name to your model field.
 
-- we can use @named annotation this way:
+- Here’s how you can use the @Named annotation
+
 ```Java
 @ValueMapValue
 @Named("jcr:lastModifiedBy")
@@ -82,35 +89,43 @@ private String createdBy;
 
 public String getCreatedBy() {
     return createdBy;
-    }
+}
+
 ```   
 
 ### @default
-- Specifies a default value to use if the injection is unsuccessful..
+- The @Default annotation specifies a default value to be used if the injection of a property is unsuccessful.
 
-- whe you used default value Null pointer exceptions are avoided.
+- By using a default value, you can avoid issues like NullPointerExceptions when a property is missing.
+
+- Here’s an example of how to use the @Default annotation:
 
 ```Java
 @ValueMapValue
-@Default(values = "Default Title") // Provides a default value for the title field
-private String title;
+@Default(values = "Default Title Field") // Provides a default value for the title field
+private String titleField;
 
 @ValueMapValue
-@Default(intValues = 0) // Provides a default value of 0 for the viewCount field
-private int viewCount;
+@Default(intValues = 0) // Provides a default value of 0 for the count field
+private int count;
+
 ``` 
 
 ### @Self
 
-- @Self annotation is used in Sling Models to inject the adaptable object itself into a model. This is particularly useful when you need direct access to the original resource, request, or other adaptable object from which the model is created.
+- The @Self annotation in Sling Models allows you to inject the adaptable object itself directly into the model. This is helpful when you need to interact with the original resource, request, or any other adaptable object that the model is based on.
 
-- Provides direct access to the original adaptable object, enabling additional operations or property retrievals.
+- By using @Self, you gain direct access to the adaptable object, enabling you to perform additional operations or retrieve properties that may not be directly mapped to the model fields
+
+- Here’s an example of how to use the @Self annotation
 
 ```java
 @Self
 private Resource resource; // Inject the adaptable object itself
 ```
-- Injects the adaptable Resource object into the resource field. This allows the model to access the resource directly for additional operations or property retrievals that are not mapped to specific fields.
+- In this example, the @Self annotation injects the Resource object into the resource field, giving the model direct access to the resource for further operations or property retrievals.
+
+- Example 1: Accessing the HTTP request
 
 ```Java
 @Model(adaptables = SlingHttpServletRequest.class)
@@ -124,6 +139,7 @@ public class RequestModel {
     }
 }
 ```
+- Example 2: Working with a resource
 
 ```Java
 @Model(adaptables = Resource.class)
@@ -139,29 +155,29 @@ public class CustomModel {
 ```
 
 ###  @Via     
-- This annotation is used to specify an alternative path or mechanism to access a value.
+- The @Via annotation allows you to specify an alternative method or path to access a value. This is useful when the value you're looking for is not directly available on the adaptable but can be accessed through another resource or object.
 
-- When the requested value may be accessible through another resource or object but is not directly available on the adaptable, this is helpful.
-
-- @Via: Specifies the intermediary adapter through which to run the adaptables object.
+- The @Via annotation defines an intermediary adapter that enables the model to access values via a different object or resource
 
 - Common Use Cases for @Via
 
-    - Accessing a Child Resource: When the value is available in a child resource rather than the current resource.
+    - Accessing a Child Resource: When the desired value is located in a child resource instead of the current resource.
 
-    - Accessing a Parent Resource: When the value is available in a parent resource.
+    - Accessing a Parent Resource: When the value can be found in a parent resource.
 
     - Accessing a Different Model: When the value is part of a different Sling Model or object.
 
--  Enhances the flexibility of Sling Models by allowing access to values not directly available on the adaptable.
+-  By using @Via, you can enhance the flexibility of Sling Models and access values that may not be directly available on the adaptable object
+
+- Here’s how you can use the @Via annotation
 
 ```java
 JCR Structure-------------------------------------------------
 
-/content/mysite/jcr:content
+/content/myproject/jcr:content
   + myComponent
-    + details
-      - title: "Hello World"
+    + buttondetails
+      - title: "Hello"
       - description: "This is a description."
 ```
 ```java
@@ -172,16 +188,16 @@ JCR Structure-------------------------------------------------
 public class MyComponentModel {
 
     @ValueMapValue
-    @Via("details") // Specifies that the value should be taken from the "details" child resource
+    @Via("buttondetails") // Specifies that the value should be taken from the "buttondetails" child resource
     private String title;
 
     @ValueMapValue
-    @Via("details")
+    @Via("buttondetails")
     private String description;
 
 }
 ```
-Example 2:
+- Here’s how you can use the @Via annotation
 
 ```Java
 import org.apache.sling.api.resource.Resource;
@@ -222,9 +238,13 @@ public class ChildModel {
 ```
 ### @PostConstruct
 
-- @PostConstruct annotation is used to mark a method in a Sling Model that should be executed after the model's dependencies have been injected and the model has been fully initialized.
+- The @PostConstruct annotation is used to mark a method in a Sling Model that should run after the model's dependencies are injected and the model is fully initialized.
 
-- The method annotated @PostConstruct must be void and take no arguments.
+- A method annotated with @PostConstruct must have a void return type and take no arguments.
+
+- This method is typically used for any setup or initialization tasks that need to happen after the model is created.
+
+- Here’s how you can use the @PostConstruct annotation
 
 ```java
 import org.apache.sling.api.resource.Resource;
@@ -238,10 +258,10 @@ import javax.annotation.PostConstruct;
     adaptables = Resource.class,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
-public class ValidatedModel {
+public class CustomModel {
 
     @ValueMapValue
-    private String title;
+    private String titleField;
 
     @ValueMapValue
     private String description;
@@ -249,16 +269,16 @@ public class ValidatedModel {
     @PostConstruct
     protected void init() {
         // Validate and set default values
-        if (title == null || title.isEmpty()) {
-            title = "Default Title";
+        if (titleField == null || titleField.isEmpty()) {
+            titleField = "Default Title Field";
         }
         if (description == null || description.isEmpty()) {
             description = "Default Description";
         }
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitleField() {
+        return titleField;
     }
 
     public String getDescription() {
@@ -269,69 +289,83 @@ public class ValidatedModel {
 - The init method checks if title and description are null or empty, and if so, assign default values.
 
 ### @OSGiService
-- @OSGiService annotation is used to inject OSGi services directly into a Sling Model.
+- The @OSGiService annotation is used to inject OSGi services directly into a Sling Model. This allows you to easily access and use OSGi services within your model.
+
+- Here’s how you can use the @OSGiService annotation
 
 ```Java
 @Model(adaptables = SlingHttpServletRequest.class,
         defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL )
-public class StudentConfigurationModelImpl {
+public class CustomConfigurationModelImpl {
     
     @OSGiService
-    StudentConfigurationMethods studentConfigurationMethods;
+    CustomConfigurationMethods customConfigurationMethods;
 
 
-    public String getStudentName() {
-        return studentConfigurationMethods.getStudentName();
+    public String getFirstName() {
+        return customConfigurationMethods.getFirstName();
     }
 
 
-    public int getRollNumber() {
-        return studentConfigurationMethods.getRollNumber();
-        }
+    public int getLastName() {
+        return customConfigurationMethods.getLastName();
+    }
 }
+
 ```        
 ### @SlingObject
 
-- @SlingObject annotation is used to inject common Sling objects directly into the model.
+- The @SlingObject annotation is used to inject common Sling objects directly into a Sling Model, providing easy access to key Sling components.
 
 - Global Objects with @SlingObject
+
     - Resource: Represents the resource being adopted.
 
     - ResourceResolver: Provides methods to resolve resources.
 
-    - SlingHttpServletRequest: Represents the current request.
+    - SlingHttpServletRequest: Represents the current HTTP request.
 
-    - SlingHttpServletResponse: Represents the current response.
+    - SlingHttpServletResponse: Represents the current HTTP response.
 
     - SlingScriptHelper: Provides access to various scripting utilities and services.
 
+- Here’s how you can use the @SlingObject annotation
+
 ```java
-    @SlingObject
-    private Resource resource; // Injects the current Resource
 
-    @SlingObject
-    private ResourceResolver resourceResolver; // Injects the ResourceResolver
+@SlingObject
+private Resource resource; // Injects the current Resource
 
-    @SlingObject
-    private SlingScriptHelper scriptHelper; // Injects the SlingScriptHelper
+@SlingObject
+private ResourceResolver resourceResolver; // Injects the ResourceResolver
+
+@SlingObject
+private SlingScriptHelper scriptHelper; // Injects the SlingScriptHelper
+
 ```
 
 ### @ScriptVariable
 
--  @ScriptVariable annotation in AEM is used in Sling Models to inject values from the script context, such as the current page, resource, request, etc.
+-  The @ScriptVariable annotation in AEM is used in Sling Models to inject values from the script context, such as the current page, resource, request, and other context-specific objects.
 
--  Global Objects with @ScriptVariable Injections
+-  Common Objects Injected with @ScriptVariable:
 
-- Page: Represents the current page.
+   - Page: Represents the current page.
 
-    - Resource: Represents the current resource.
+   - Resource: Represents the current resource.
 
-    - SlingHttpServletRequest: Represents the current request.
+   - SlingHttpServletRequest: Represents the current HTTP request.
 
-    - SlingHttpServletResponse: Represents the current response.
-    - ValueMap: Represents the properties of the current resource.
-    - SlingScriptHelper: Provides access to various AEM services.
-    - ResourceResolver: Provides access to resources in the JCR.
+   - SlingHttpServletResponse: Represents the current HTTP response.
+
+   - ValueMap: Represents the properties of the current resource.
+
+   - SlingScriptHelper: Provides access to various AEM services.
+
+   - ResourceResolver: Provides access to resources within the JCR.
+
+- Here’s how you can use the @ScriptVariable annotation
+
 ```java
 import com.day.cq.wcm.api.Page;
 import org.apache.sling.api.resource.Resource;
@@ -347,10 +381,10 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
     adaptables = Resource.class,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
-public class AdvancedExampleModel {
+public class CustomModel {
 
     @ValueMapValue
-    private String title;
+    private String titleField;
 
     @ScriptVariable
     private Page currentPage;
@@ -364,8 +398,8 @@ public class AdvancedExampleModel {
     @ScriptVariable
     private SlingScriptHelper sling;
 
-    public String getTitle() {
-        return title;
+    public String getTitleField() {
+        return titleField;
     }
 
     public Page getCurrentPage() {
@@ -385,23 +419,25 @@ public class AdvancedExampleModel {
     }
 }
 ```
--  we inject several objects from the script context, including the current Page, Resource, ResourceResolver, and SlingScriptHelper.
 
 ### @ChildResource
-- A child resource of the current resource can be immediately injected into the model using the @ChildResource annotation
 
-- Allows specifying the path relative to the current resource to identify the child resource.
+- The @ChildResource annotation allows you to directly inject a child resource of the current resource into the model.
 
-- Can inject single resources or collections (e.g., lists of resources).
+- You can specify a path relative to the current resource to identify the child resource, making it easy to work with nested resources.
+
+- The annotation can be used to inject either a single child resource or collections of resources (e.g., lists of resources).
+
+- Here’s how you can use the @ChildResource annotation
 
 ```java
 JCR Structure-------------------------------------------------
 
-/content/mysite/jcr:content
+/content/myProject/jcr:content
   + myComponent
-    - title: "Main Title"
-    + details
-      - subtitle: "Sub Title"
+    - titleField: "Title"
+    + detailsField
+      - subtitleField: "Sub TitleField"
       - description: "Detailed description."
     + items
       + item1
@@ -423,27 +459,27 @@ import java.util.List;
     adaptables = Resource.class,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
-public class ExampleModel {
+public class CustomModel {
 
     @ValueMapValue
-    private String title;
+    private String titleField;
 
-    @ChildResource(name = "details")
-    private Resource details; // Injects the 'details' child resource
+    @ChildResource(name = "detailsField")
+    private Resource detailsField; // Injects the 'detailsField' child resource
 
     @ChildResource(name = "items")
     private List<Resource> items; // Injects the 'items' child resources
 
-    public String getTitle() {
-        return title;
+    public String getTitleField() {
+        return titleField;
     }
 
-    public String getSubtitle() {
-        return details != null ? details.getValueMap().get("subtitle", String.class) : null;
+    public String getSubtitleField() {
+        return detailsField != null ? detailsField.getValueMap().get("subtitleField", String.class) : null;
     }
 
     public String getDescription() {
-        return details != null ? details.getValueMap().get("description", String.class) : null;
+        return detailsField != null ? detailsField.getValueMap().get("description", String.class) : null;
     }
 
     public List<Resource> getItems() {
@@ -459,21 +495,26 @@ public class ExampleModel {
 }
 ```
 
-- @ChildResource(name = "details"): Injects the details child resource.
+- @ChildResource(name = "detailsField"): Injects the detailsField child resource.
+
 - @ChildResource(name = "items"): Injects a list of child resources from the items node
 
 ### @ResourcePath
-- This annotation is used to inject a Resource based on a given path.
-- This annotation is useful when you need to work with resources that are not directly part of the current request or resource tree, allowing you to inject resources from any location in the JCR repository.
+
+- The @ResourcePath annotation is used to inject a resource based on a specified path.
+
+- This is especially useful when you need to work with resources that are not part of the current request or resource tree, allowing you to inject resources from any location within the JCR repository.
+
+- Here’s how you can use the @ResourcePath annotation
 
 ```java
 JCR Structure-------------------------------------------------
 
-/content/mysite
+/content/myProject
   + jcr:content
-    - title: "Main Content"
+    - titleField: "Main Content"
   + referencedContent
-    - title: "Referenced Content"
+    - titleField: "Referenced Content"
 ```
 ```java
 import org.apache.sling.api.resource.Resource;
@@ -487,34 +528,37 @@ import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
     adaptables = Resource.class,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
-public class ExampleModel {
+public class CustomModel {
 
     @ValueMapValue
-    private String title;
+    private String titleField;
 
-    @ResourcePath(path = "/content/mysite/referencedContent")
+    @ResourcePath(path = "/content/myProject/referencedContent")
     private Resource referencedResource; // Injects the resource at the specified path
 
-    public String getTitle() {
-        return title;
+    public String getTitleField() {
+        return titleField;
     }
 
     public String getReferencedTitle() {
         if (referencedResource != null) {
             ValueMap valueMap = referencedResource.getValueMap();
-            return valueMap.get("title", String.class);
+            return valueMap.get("titleField", String.class);
         }
         return null;
     }
 }
 ```
 ### @RequestAttribute
-- Request attributes are data that are passed along with the HTTP request, and this annotation allows you to access these attributes directly within your model.
 
-- This is particularly useful when you need to process or utilize data that is provided dynamically during the request.
+- The @RequestAttribute annotation allows you to access request attributes directly within your model. Request attributes are data passed along with the HTTP request, and this annotation is particularly useful when you need to process or use data that is dynamically provided during the request.
 
-Step 1: Set Up the Request Attribute
-Servlet or Component: In your servlet or any other part of your code that handles the request, set the request attribute:
+- Step 1: Set Up the Request Attribute
+
+- In your servlet or any other part of your code that handles the request, you can set the request attribute
+
+- Here’s how you can use the @RequestAttribute annotation
+
 ```java
 request.setAttribute("myAttribute", "This is a request attribute");
 ```
@@ -529,7 +573,7 @@ import org.apache.sling.models.annotations.injectorspecific.RequestAttribute;
     adaptables = SlingHttpServletRequest.class,
     defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL
 )
-public class ExampleModel {
+public class CustomModel {
 
     @RequestAttribute(name = "myAttribute")
     private String myAttribute; // Injects the request attribute
@@ -540,4 +584,8 @@ public class ExampleModel {
 }
 ```
 
-- @RequestAttribute(name = "myAttribute"): Injects the request attribute named myAttribute into the Sling Model.
+### @Designate
+-  Used for OSGi component configuration in Sling Models.
+
+### @Activate
+- Used to define when an OSGi component should be activated.
