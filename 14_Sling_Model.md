@@ -7,31 +7,46 @@
     - [What is Sling Model ?](#what-is-sling-model)
     
     - [Features of Sling Models](#features-of-sling-models)
+    
     - [How Many Ways We Can Adapt Sling Model ?](#how-many-ways-we-can-adapt-sling-model)
 
-    - [Lets Understand Above Attributes](#lets-understand-above-attributes)
+    - [Lets Understand Common Annotation](#lets-understand-common-annotation)
+
+        - [@Model Annotation](#model-annotation)
+
+        - [adaptables](#adaptables)
+
+        - [adapter](#adapter)
+
+        - [resourceType](#resourcetype)
+
+        - [defaultInjectionStrategy](#defaultinjectionstrategy)
 
     - [Create a Component using Sling Model](#lets-create-a-component-using-sling-model)
 
     - [Sling Model Work Flow](#sling-model-work-flow)
 
+    - [Best Practices for Writing Sling Models in AEM](#best-practices-for-writing-sling-models-in-aem)
+
+    - [Best Approach for Practices](#best-approach-for-practices)
+
+    - [How to Handle Both Scenarios?](#how-to-handle-both-scenarios)
+
 ### What is Sling Model ?
 
 - Sling Model is the one of restful framework which is created inside the AEM Architecture which is used to map request or resource objects.
-
-- They also allows us to map resource properties and inject OSGI services.
 
 - A Sling Model is implemented as an OSGi bundle. 
 
 ### Features of Sling Models
 
-- **Annotations-based Configuration**: Uses annotations like @Model, @Inject, @ValueMapValue, etc., to map properties.
+- **Annotations-Driven**: it Utilizes annotations like @Model, @Inject, and @ValueMapValue to streamline the mapping of properties in AEM components.
 
-- **Dependency Injection**: Automatically injects properties, services, or objects from the Sling context.
+- **Built-in Dependency Injection**: Enables automatic injection of properties, services, and objects from the Sling context, simplifying the code
 
-- **Flexibility**: Works with different adaptable objects such as Resource and SlingHttpServletRequest.
+- **Versatile Adaptability**: Designed to work with a variety of adaptable objects, including Resource and SlingHttpServletRequest, to suit diverse use cases.
 
-- **Modularity**: Separates content retrieval and business logic from the component view (HTL).
+- **Modular Structure**: Encourages a clear separation of concerns, keeping content retrieval and business logic distinct from the component’s HTL view.
 
 ### How Many Ways We Can Adapt Sling Model ?
 
@@ -41,45 +56,50 @@
 
     - SlingHttpServletRequest
 
-```Js
+#### Syntax
+
+```Java
 @Model(adaptables = {Resource.class, SlingHttpServletRequest.class}, adapters = {Button.class}, resourceType = {ButtonImpl.RESOURCE_TYPE}, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class ButtonImpl extend Button{
     // logic
 }
 ```
 
-### Lets Understand Above Attributes
+### Lets Understand Common Annotation
 
-- @Model annotation
-    - This annotation marks the class as a Sling Model and must be present on the class.
-    - Represents content properties in a key-value format.
+#### @Model Annotation
 
-- adaptables.
-    - This attribute specifies the types from which this model can be adapted.
+- This annotation define the class as a Sling Model and must be present on the top of the class.
+
+
+#### adaptables.
+
+- The adaptables attribute defines the types of objects that a model can be adapted from. There are two primary types
 
    - Resource.class
 
-        - The data are stored inside the JCR and the content are resource for adapting that data we can use Resource.class.
+        - Represents the data stored within the JCR (Java Content Repository). When content is treated as a resource, you can use Resource.class to adapt it and access its properties or child resources effectively.
 
     - SlingHttpServletRequest
 
-        - If you need access to information specific to the HTTP request, such as request parameters, headers, or session data, then using SlingHttpServletRequest as an adaptable and additional objects like WCM-specific objects (currentPage, currentDesign, etc.).
+        - Useful when you need to access HTTP request-specific information, such as parameters, headers, or session attributes. Additionally, it allows access to WCM-specific objects like currentPage and currentDesign to support more dynamic use cases
 
-- adapter
-    - The adapters attribute specifies the interface(s) or class(es) that this model will be adapted to.
+#### adapter
 
-- resourceType 
+- The adapters attribute specifies the interface(s) or class(es) that this model will be adapted to.
 
-    - The resourceType attribute specifies the resource types that this model supports.    
+#### resourceType 
+
+- The resourceType attribute specifies the resource types that this model supports.    
 
 
-- defaultInjectionStrategy
+#### defaultInjectionStrategy
 
-    - The defaultInjectionStrategy attribute defines how Sling Models handle injection when a value is not found
+- The defaultInjectionStrategy attribute determines how Sling Models handle injection when a value is missing. There are two types of injection strategies 
 
-    - **DefaultInjectionStrategy.OPTIONAL** means that if a value is not available for injection, it will be set to null instead of throwing an error.
+    - **DefaultInjectionStrategy.OPTIONAL** If a value is unavailable for injection, it will simply be set to null instead of throwing an error.
 
-    - **DefaultInjectionStrategy.REQUIRED** means that all the values should be available for injection, if not found it will throw and error.
+    - **DefaultInjectionStrategy.REQUIRED** Ensures that all required values must be available for injection. If a value is missing, an error will be thrown
 
 ### Let`s Create a Component using Sling Model
 
@@ -242,6 +262,7 @@ public class CustomComponentImpl implements CustomComponent{
 - Now lets map this sling model in HTL/Sightly.
 
 - we should Use ‘data-sly-use” for fetching the sling model in our HTL file.
+
 ```html
 <sly data-sly-use.customComponent="com.debug.code.core.models.CustomComponent">
 
@@ -298,3 +319,105 @@ public class CustomComponentImpl implements CustomComponent{
 
 - The returned data is then rendered as part of the final HTML output
 
+### Best Practices for Writing Sling Models in AEM
+
+> **Note :**  Avoid Using Both Resource and SlingHttpServletRequest Together as Adaptables in a Sling Model
+
+Ambiguity in Adaptation
+- When a Sling Model specifies both Resource and SlingHttpServletRequest as adaptables, the framework may struggle to determine the context, leading to potential issues
+    
+    - If the model is adapted from a Resource, it will look for properties within the resource.
+    
+    - If adapted from SlingHttpServletRequest, it will pull in attributes, request parameters, or other injected values associated with the HTTP request.
+
+```Java
+@Model(adaptables = {Resource.class, SlingHttpServletRequest.class})
+public class Button {
+
+    @ValueMapValue
+    private String property;
+}
+
+```
+- Having these two adaptables can result in inconsistent behavior, as the context for instantiating the model may not be clear.
+
+- Separation of Concerns
+    
+    - **Resource**: Primarily used for accessing and working with content stored in the JCR repository, making it the best choice when you need to work with properties or children of resources.
+
+    - **SlingHttpServletRequest**: Represents the HTTP request context, providing access to request-specific data like parameters, attributes, and objects like currentPage and currentDesign.
+
+- Combining these in a single model can create confusion because it merges the content layer (JCR) with the request layer (HTTP), making it harder to maintain a clean separation of concerns.
+
+- Testing Challenges
+
+    - When both adaptables are used, unit testing becomes more complex, as you need to mock both the Resource and SlingHttpServletRequest contexts. This adds extra overhead and potential for test failures.
+
+### Best Approach for Practices
+
+- Choose the Right Adaptable for Your Model
+
+- Use Resource When
+
+    - Your model is focused on content stored in the JCR.
+    - You only need to access properties or children of a resource.
+
+```java
+@Model(adaptables = Resource.class)
+public class Button {
+    @ValueMapValue
+    private String title;
+}
+
+```
+
+- Use SlingHttpServletRequest When
+
+    - Your model depends on request-specific data, such as parameters, request attributes, or objects like currentPage and currentResource.
+
+```java
+@Model(adaptables = SlingHttpServletRequest.class)
+public class Button {
+
+    @Inject
+    private Page currentPage;
+
+    @Inject
+    private String parameter;
+}
+
+```
+
+### How to Handle Both Scenarios?
+
+- If you need to work with both Resource and SlingHttpServletRequest data, it’s a good practice to adapt your model from the SlingHttpServletRequest and retrieve the Resource within the model itself. This way, you avoid the complications of dual adaptables.
+
+```java
+@Model(adaptables = SlingHttpServletRequest.class)
+public class Button {
+
+    @Inject
+    private Resource resource;
+
+    @Inject
+    private String requestParam;
+
+    public String getTitle() {
+        return resource.getValueMap().get("title", String.class);
+    }
+
+    public String getRequestParam() {
+        return requestParam;
+    }
+}
+
+```
+- In this example, resource is injected from the SlingHttpServletRequest, avoiding the complexity of adapting from multiple sources.
+
+### Prefer Specific Annotations Over @Inject
+
+- Although @Inject is a general-purpose annotation that can inject properties or objects from various contexts, using more specific annotations like @ValueMapValue, @ChildResource, @ScriptVariable, or @OSGiService is recommended. These annotations improve clarity, maintainability, and debugging.
+
+### Benefits of Using Specific Annotations
+- @ValueMapValue: Makes it clear that the property is coming from the ValueMap of the resource.
+- @OSGiService: Indicates that the value is being injected from the OSGi service registry.
