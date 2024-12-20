@@ -291,8 +291,11 @@ public class CustomComponentImpl implements CustomComponent{
 
 - In this way you can create a sling model.
 
+
 ### Sling Model Work Flow
 
+![com](./Images/component/napkin-selection%20(5).png)
+       
 - You have authored component in this page - http://localhost:4502/content/aem-debugcode/us/en/test-page.html?wcmmode=disabled
 
 - When this URL is accessed, AEM resolves it by checking the underlying CRX/DE path - 

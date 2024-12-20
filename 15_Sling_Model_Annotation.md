@@ -165,7 +165,7 @@ public class CustomModel {
 
     - Accessing a Parent Resource: When the value can be found in a parent resource.
 
-    - Accessing a Different Model: When the value is part of a different Sling Model or object.
+    - Different Model: When the value is part of a different Sling Model or object.
 
 -  By using @Via, you can enhance the flexibility of Sling Models and access values that may not be directly available on the adaptable object
 
@@ -177,8 +177,8 @@ JCR Structure-------------------------------------------------
 /content/myproject/jcr:content
   + myComponent
     + buttondetails
-      - title: "Hello"
-      - description: "This is a description."
+      - titleField: "Hello"
+      - descriptionField: "This is a descriptionField."
 ```
 ```java
 @Model(
@@ -189,11 +189,11 @@ public class MyComponentModel {
 
     @ValueMapValue
     @Via("buttondetails") // Specifies that the value should be taken from the "buttondetails" child resource
-    private String title;
+    private String titleField;
 
     @ValueMapValue
     @Via("buttondetails")
-    private String description;
+    private String descriptionField;
 
 }
 ```
@@ -214,10 +214,10 @@ import org.apache.sling.models.annotations.Via;
 public class ParentModel {
 
     @ValueMapValue
-    private String title;
+    private String titleField;
 
-    public String getTitle() {
-        return title;
+    public String getTitleField() {
+        return titleField;
     }
 }
 
@@ -232,7 +232,7 @@ public class ChildModel {
     private ParentModel parentModel;
 
     public String getTitleFromParent() {
-        return parentModel.getTitle();
+        return parentModel.getTitleField();
     }
 }
 ```
@@ -264,16 +264,15 @@ public class CustomModel {
     private String titleField;
 
     @ValueMapValue
-    private String description;
+    private String descriptionField;
 
     @PostConstruct
     protected void init() {
-        // Validate and set default values
         if (titleField == null || titleField.isEmpty()) {
             titleField = "Default Title Field";
         }
-        if (description == null || description.isEmpty()) {
-            description = "Default Description";
+        if (descriptionField == null || descriptionField.isEmpty()) {
+            descriptionField = "Default DescriptionField";
         }
     }
 
@@ -281,12 +280,12 @@ public class CustomModel {
         return titleField;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDescriptionField() {
+        return descriptionField;
     }
 }
 ```
-- The init method checks if title and description are null or empty, and if so, assign default values.
+- This init method checks if titleField and descriptionField are null or empty, and if so, assign default values.
 
 ### @OSGiService
 - The @OSGiService annotation is used to inject OSGi services directly into a Sling Model. This allows you to easily access and use OSGi services within your model.
@@ -327,7 +326,7 @@ public class CustomConfigurationModelImpl {
 
     - SlingHttpServletResponse: Represents the current HTTP response.
 
-    - SlingScriptHelper: Provides access to various scripting utilities and services.
+    - SlingScriptHelper: This Provides access to various scripting utilities and services.
 
 - Here’s how you can use the @SlingObject annotation
 
