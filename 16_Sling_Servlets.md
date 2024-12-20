@@ -90,7 +90,7 @@
 
 ### Lifecycle of an AEM Servlet
 
-![Servlets](./Images/Servlets/napkin-selection%20(2).png)
+![Servlets](./Images/Servlets/image6.png)
 
 - AEM servlets are managed differently due to AEM’s reliance on the OSGi framework and Sling models. These servlets are primarily designed to work in the context of AEM components and the JCR (Java Content Repository).
 
@@ -133,11 +133,11 @@
 ### Key Differences Between Normal Servlets and AEM Servlets
 
 
-![diff](./Images/Servlets/napkin-selection%20(11).png)
+![diff](./Images/Servlets/image9.png)
 
 ### What are Sling Servlets?
 
-![diff](./Images/Servlets/napkin-selection%20(10).png)
+![diff](./Images/Servlets/image8.png)
 
 - Sling Servlets are server-side components used in Sling-based applications to handle HTTP requests and generate responses. They are an integral part of Adobe Experience Manager (AEM) development.
 
@@ -147,7 +147,7 @@
 
 ### Restrictions on Sling Servlets
 
-![diff](./Images/Servlets/napkin-selection%20(12).png)
+![diff](./Images/Servlets/image10.png)
 
 - Mandatory Properties
 
@@ -167,7 +167,7 @@
 
 ### Types of Sling Servlets
 
-![diff](./Images/Servlets/napkin-selection%20(13).png)
+![diff](./Images/Servlets/image11.png)
 
 - In Sling, there are two types of servlets, each servlets is designed for different HTTP methods. When creating a servlet, it's important to select the appropriate type based on the operations you want to perform.
 
@@ -189,7 +189,7 @@
 
 - Below is a detailed explanation of how a request flows through Sling in AEM, from a web browser to the servlet, and back again.
 
-![Servlets](./Images/Servlets/napkin-selection%20(1).png)
+![Servlets](./Images/Servlets/image5.png)
 
 Step 1: Request from the Web Browser or End User
 
@@ -283,7 +283,7 @@ Step 7: Data Formats and Response
 
 - When deciding between using a resource type-based servlet or a path-based servlet in AEM, there are a few important differences to consider:    
 
-    ![new](./Images/Servlets/new.png)
+    ![new](./Images/Servlets/image12.png)
 
 - Resource Type-Based Servlets
 
@@ -429,7 +429,7 @@ OUTPUT:
 
 ### let's Understand the code
 
-![code](./Images/Servlets/napkin-selection%20(6).png)
+![code](./Images/Servlets/image15.png)
 
 - The servlet receive incoming requests at a specific URL (e.g., /bin/createDynamicPages?parentPath=/content/aem-debugcode/us/en&pageTitle=LandingPage&pageName=landPage).
 
