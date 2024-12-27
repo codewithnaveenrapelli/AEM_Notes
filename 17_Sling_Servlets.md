@@ -44,7 +44,7 @@
 
 ### What is a Servlet?
 
-- A servlet is a Java class designed to enhance the functionality of servers that handle client requests and generate responses, typically in web-based applications.
+- A servlet is a Java class it is to designed to enhance the functionality of servers that handle client requests and generate responses, typically in web-based applications.
 
 - While servlets can process a wide range of requests, they are primarily used to add features to web servers.
 
