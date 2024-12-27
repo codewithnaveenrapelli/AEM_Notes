@@ -17,6 +17,6 @@
 | 13    |  [ Content Fragment in AEM](./13_Content_Fragment.md) |
 | 14    |  [ Sling Model in AEM](./14_Sling_Model.md) |
 | 15    |  [ Sling Model Annotation in AEM](./15_Sling_Model_Annotation.md) |
-| 16    |  [ Sling Servlets in AEM](./16_Sling_Servlets.md) |
-
+| 16    |  [ Sling Model Content Exporter in AEM](./16_Sling_Model_Content_Exporter.md) |
+| 17    |  [ Sling Servlets in AEM](./17_Sling_Servlets.md) |
 Keep Learning 🩷👍
