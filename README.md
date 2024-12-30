@@ -19,4 +19,5 @@
 | 15    |  [ Sling Model Annotation in AEM](./15_Sling_Model_Annotation.md) |
 | 16    |  [ Sling Model Content Exporter in AEM](./16_Sling_Model_Content_Exporter.md) |
 | 17    |  [ Sling Servlets in AEM](./17_Sling_Servlets.md) |
+| 18    |  [ MSM in AEM](./18_MSM.md) |
 Keep Learning 🩷👍
