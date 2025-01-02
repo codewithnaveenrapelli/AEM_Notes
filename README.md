@@ -20,5 +20,7 @@
 | 16    |  [ Sling Model Content Exporter in AEM](./16_Sling_Model_Content_Exporter.md) |
 | 17    |  [ Sling Servlets in AEM](./17_Sling_Servlets.md) |
 | 18    |  [ MSM in AEM](./18_MSM.md) |
+| 19    |  [ Service user and Resource Resolver in aem](./19_SystemUser.md) |
+| 20    |  [ Logger in aem](./20_Logger.md) |
 
 Keep Learning 🩷👍
