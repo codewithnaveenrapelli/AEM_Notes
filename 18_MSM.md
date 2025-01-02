@@ -375,19 +375,27 @@ mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate -Darchetyp
 
     - Synchronize
 
-        - This option is used to manually sync the live copy with the latest updates made to the master (source) page.
+        - Use this option when you want the Live Copy to get the latest updates from the master page (source) without losing your own changes.
+
+        - Adds new updates on top of the Live Copy's existing content.
     
     - Reset
 
-        - This resets the live copy to match the master exactly, discarding any custom changes made to the live copy
+        - This is like starting fresh. It makes the Live Copy exactly like the master page.
+        
+        - Any custom changes you made in the Live Copy will be erased.
     
     - Suspend
 
-        - After suspending, changes made to the master will no longer propagate to the live copy until the inheritance is re-enabled.
+        - Temporarily pause updates from the master page to the Live Copy.
+        
+        - Changes you make locally will stay, and you can re-enable the updates later.
     
     - Detach
 
         - Permanently detaches the live copy from the master page
+
+        - The Live Copy becomes independent and won’t get updates from the master anymore
 
     - You can choose to synchronize the entire page or just specific components
 
